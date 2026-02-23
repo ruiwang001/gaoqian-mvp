@@ -108,10 +108,10 @@ export default function OnboardingPage() {
                     key={v}
                     onClick={() => setDailyHours(v)}
                     className={[
-                      "h-11 rounded-xl text-sm hairline transition",
+                      "h-11 rounded-xl text-sm shadow-edge transition",
                       dailyHours === v
-                        ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900"
-                        : "bg-white text-slate-700 hover:bg-slate-50 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800",
+                        ? "bg-accent-blue/20 text-accent-blue border border-accent-blue/30"
+                        : "bg-white/4 text-text-2 hover:bg-white/6",
                     ].join(" ")}
                   >
                     {v}
@@ -128,17 +128,17 @@ export default function OnboardingPage() {
                     key={v}
                     onClick={() => setExecution(v as 1 | 2 | 3)}
                     className={[
-                      "h-11 rounded-xl text-sm hairline transition",
+                      "h-11 rounded-xl text-sm shadow-edge transition",
                       execution === v
-                        ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900"
-                        : "bg-white text-slate-700 hover:bg-slate-50 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800",
+                        ? "bg-accent-blue/20 text-accent-blue border border-accent-blue/30"
+                        : "bg-white/4 text-text-2 hover:bg-white/6",
                     ].join(" ")}
                   >
                     {v}
                   </button>
                 ))}
               </div>
-              <div className="text-xs text-slate-500 dark:text-slate-500">1=容易拖延，2=正常，3=自驱执行强</div>
+              <div className="text-xs text-text-mute">1=容易拖延，2=正常，3=自驱执行强</div>
             </div>
           </CardContent>
         </Card>
@@ -154,7 +154,7 @@ export default function OnboardingPage() {
               onChange={(e) => setSkillsText(e.target.value)}
             />
 
-            <div className="rounded-2xl bg-slate-50 dark:bg-slate-800/50 p-4 hairline text-sm text-slate-600 dark:text-slate-400">
+            <div className="rounded-2xl bg-white/4 p-4 shadow-edge shadow-inset text-sm text-text-3">
               示例：写简历/剪视频/做PPT/会英语/会销售/会用AI/有渠道资源/能线下跑业务…
             </div>
 
@@ -168,7 +168,7 @@ export default function OnboardingPage() {
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
 
-            <p className="text-xs text-slate-500 dark:text-slate-500">
+            <p className="text-xs text-text-mute">
               风险提示：本产品输出为"行动建议与任务拆解"，不构成收益承诺。
             </p>
           </CardContent>

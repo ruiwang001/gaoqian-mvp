@@ -38,9 +38,8 @@ export default function RecommendationsPage() {
         });
         if (!res.ok) throw new Error(`请求失败: ${res.status}`);
         const data = await res.json();
-        const list = (data?.recommendations || []) as Recommendation[];
-        patchStore({ recommendations: list });
-        setRecs(list);
+        patchStore({ recommendations: data.recommendations || [] });
+        setRecs(data.recommendations || []);
       } catch (e: any) {
         setErr(e?.message || "未知错误");
       } finally {
@@ -53,7 +52,6 @@ export default function RecommendationsPage() {
     if (!onboarding) return;
     patchStore({ recommendations: recs });
 
-    // 生成plan
     const res = await fetch("/api/kimi/plan", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -105,13 +103,13 @@ export default function RecommendationsPage() {
     <div className="space-y-8">
       <header className="flex items-center justify-between">
         <BrandMark />
-        <Badge>AI推荐</Badge>
+        <Badge>AI 推荐</Badge>
       </header>
 
       {loading && (
         <Card>
-          <CardContent className="flex items-center gap-3 p-6 text-slate-700 dark:text-slate-300">
-            <Loader2 className="h-4 w-4 animate-spin" />
+          <CardContent className="flex items-center gap-3 p-6 text-text-2">
+            <Loader2 className="h-4 w-4 animate-spin text-accent-blue" />
             正在生成 3 条路径（稳健估算）…
           </CardContent>
         </Card>
@@ -120,8 +118,8 @@ export default function RecommendationsPage() {
       {!loading && err && (
         <Card>
           <CardContent className="p-6">
-            <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">发生错误</div>
-            <div className="mt-1 text-sm text-slate-600 dark:text-slate-400">{err}</div>
+            <div className="text-sm font-semibold text-text-1">发生错误</div>
+            <div className="mt-1 text-sm text-text-3">{err}</div>
             <div className="mt-4">
               <Button variant="secondary" onClick={() => location.reload()}>
                 重试
@@ -138,7 +136,7 @@ export default function RecommendationsPage() {
               <CardHeader>
                 <CardTitle className="flex items-center justify-between gap-2">
                   <span className="text-sm font-semibold">{r.title}</span>
-                  <span className="text-xs text-slate-500 dark:text-slate-400">{r.fitScore}/100</span>
+                  <span className="text-xs text-text-3">{r.fitScore}/100</span>
                 </CardTitle>
                 <CardDescription className="text-xs">
                   收入区间：{r.incomeRange}
@@ -151,12 +149,12 @@ export default function RecommendationsPage() {
                   <Badge>成本：{r.startCost}</Badge>
                 </div>
 
-                <div className="rounded-2xl bg-slate-50 dark:bg-slate-800/50 p-4 hairline">
-                  <div className="flex items-center gap-2 text-sm font-medium text-slate-900 dark:text-slate-100">
-                    <Sparkles className="h-4 w-4" />
+                <div className="rounded-2xl bg-white/4 p-4 shadow-edge shadow-inset">
+                  <div className="flex items-center gap-2 text-sm font-medium text-text-1">
+                    <Sparkles className="h-4 w-4 text-accent-amber" />
                     推荐原因
                   </div>
-                  <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600 dark:text-slate-400">
+                  <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-text-2">
                     {r.why.slice(0, 5).map((w, i) => (
                       <li key={i}>{w}</li>
                     ))}
@@ -165,9 +163,9 @@ export default function RecommendationsPage() {
 
                 <Separator />
 
-                <div className="rounded-2xl bg-white dark:bg-slate-900 p-4 hairline">
-                  <div className="text-sm font-medium text-slate-900 dark:text-slate-100">最小启动步骤</div>
-                  <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-slate-600 dark:text-slate-400">
+                <div className="rounded-2xl bg-white/4 p-4 shadow-edge shadow-inset">
+                  <div className="text-sm font-medium text-text-1">最小启动步骤</div>
+                  <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-text-2">
                     {r.firstSteps.slice(0, 6).map((s, i) => (
                       <li key={i}>{s}</li>
                     ))}

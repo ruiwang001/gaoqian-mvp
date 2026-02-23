@@ -7,15 +7,9 @@ import { Button } from "@/components/ui/button";
 export function ThemeToggle() {
   const { theme, toggleTheme, mounted } = useTheme();
 
-  // Prevent hydration mismatch - render placeholder until mounted
   if (!mounted) {
     return (
-      <Button
-        variant="ghost"
-        size="icon"
-        className="rounded-full opacity-0"
-        disabled
-      >
+      <Button variant="ghost" size="icon" className="rounded-full opacity-0" disabled>
         <Sun className="h-5 w-5" />
       </Button>
     );
@@ -26,13 +20,13 @@ export function ThemeToggle() {
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
-      className="rounded-full"
+      className="rounded-full text-text-3 hover:text-text-1 hover:bg-white/6"
       title={theme === "light" ? "切换到深色模式" : "切换到浅色模式"}
     >
       {theme === "light" ? (
-        <Moon className="h-5 w-5 text-slate-600" />
+        <Moon className="h-5 w-5" />
       ) : (
-        <Sun className="h-5 w-5 text-yellow-400" />
+        <Sun className="h-5 w-5" />
       )}
     </Button>
   );

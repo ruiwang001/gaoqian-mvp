@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
-}
-
-.dark {
   color-scheme: dark;
 }
 
@@ -15,33 +11,61 @@ html, body {
 }
 
 body {
-  @apply bg-white text-slate-900 antialiased;
-}
-
-.dark body {
-  @apply bg-slate-950 text-slate-100;
+  background: #0f172a;
+  color: rgba(255,255,255,0.92);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .fin-bg {
-  background: radial-gradient(1200px 600px at 10% -10%, rgba(37, 99, 235, 0.10), transparent 55%),
-              radial-gradient(900px 600px at 90% 10%, rgba(16, 185, 129, 0.08), transparent 60%),
-              linear-gradient(180deg, #ffffff, #fbfdff 55%, #ffffff);
+  /* 空气层 + 极弱光晕 + 深色金融底 */
+  background: 
+    radial-gradient(1200px 680px at 18% -12%, rgba(77,163,255,0.14), transparent 55%),
+    radial-gradient(900px 620px at 88% 10%, rgba(52,211,153,0.10), transparent 58%),
+    radial-gradient(900px 560px at 60% 120%, rgba(167,139,250,0.06), transparent 60%),
+    linear-gradient(180deg, #0f172a 0%, #1e293b 45%, #0f172a 100%);
 }
 
-.dark .fin-bg {
-  background: radial-gradient(1200px 600px at 10% -10%, rgba(59, 130, 246, 0.15), transparent 55%),
-              radial-gradient(900px 600px at 90% 10%, rgba(34, 197, 94, 0.10), transparent 60%),
-              linear-gradient(180deg, #0f172a, #0a0f1c 55%, #0f172a);
+/* 噪点：轻奢质感关键（极低透明） */
+.fin-noise {
+  position: relative;
+}
+.fin-noise::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+  opacity: 0.045;
+  mix-blend-mode: overlay;
 }
 
 .hairline {
-  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.06);
-}
-
-.dark .hairline {
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
 }
 
 .text-balance {
   text-wrap: balance;
+}
+
+/* 金融数字质感：等宽数字 */
+.num {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.2px;
+}
+
+/* 轻微进入动效 */
+.enter {
+  animation: enter 220ms ease-out both;
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

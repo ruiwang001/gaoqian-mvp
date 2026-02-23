@@ -14,13 +14,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="zh-CN" suppressHydrationWarning>
+    <html lang="zh-CN">
       <body className="fin-bg">
-        <ThemeProvider>
-          <LayoutWrapper>
-            {children}
-          </LayoutWrapper>
-        </ThemeProvider>
+        <div className="fin-noise">
+          <ThemeProvider>
+            <LayoutWrapper>{children}</LayoutWrapper>
+          </ThemeProvider>
+        </div>
       </body>
     </html>
   );
