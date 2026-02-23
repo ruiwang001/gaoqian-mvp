@@ -34,6 +34,7 @@ export type TaskDetail = {
   aiOutput?: string;
   loading?: boolean;
   error?: string;
+  expanded?: boolean;
 };
 
 export type PlanTask = {
