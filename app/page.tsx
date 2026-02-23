@@ -1,12 +1,32 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { BrandMark } from "@/components/brand";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { ArrowRight, ShieldCheck, Sparkles, ListChecks } from "lucide-react";
+import { ArrowRight, ShieldCheck, Sparkles, ListChecks, Type, Minus, Plus } from "lucide-react";
 
 export default function HomePage() {
+  const [fontSize, setFontSize] = useState(100);
+  const [showFontControl, setShowFontControl] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("font-size");
+    if (saved) setFontSize(Number(saved));
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.style.fontSize = `${fontSize}%`;
+    localStorage.setItem("font-size", String(fontSize));
+  }, [fontSize]);
+
+  const adjustFont = (delta: number) => {
+    setFontSize(prev => Math.max(80, Math.min(130, prev + delta)));
+  };
+
   return (
     <div className="space-y-10">
       <header className="flex items-center justify-between">
@@ -14,8 +34,30 @@ export default function HomePage() {
         <div className="flex items-center gap-2">
           <Badge>轻奢金融质感</Badge>
           <Badge>极简 MVP</Badge>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={() => setShowFontControl(!showFontControl)}
+            className="relative"
+            title="调整字体"
+          >
+            <Type className="h-4 w-4" />
+          </Button>
         </div>
       </header>
+
+      {showFontControl && (
+        <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+          <span className="text-sm text-text-2">字体大小</span>
+          <Button variant="ghost" size="icon" onClick={() => adjustFont(-10)}>
+            <Minus className="h-4 w-4" />
+          </Button>
+          <span className="text-sm font-medium w-12 text-center">{fontSize}%</span>
+          <Button variant="ghost" size="icon" onClick={() => adjustFont(10)}>
+            <Plus className="h-4 w-4" />
+          </Button>
+        </div>
+      )}
 
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="space-y-4">
