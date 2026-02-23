@@ -114,7 +114,7 @@ export default function OnboardingPage() {
                         : "bg-white/4 text-text-2 hover:bg-white/6",
                     ].join(" ")}
                   >
-                    {v}
+                    {v}小时
                   </button>
                 ))}
               </div>
